@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Donor | LifeDrop</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .donor-section {
+            min-height: 70vh;
+            padding: 55px 0 75px;
+            background: #fff7f7;
+        }
+
+        .donor-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .donor-heading h1 {
+            margin: 10px 0;
+            font-size: 38px;
+        }
+
+        .donor-heading p {
+            color: #62585b;
+        }
+
+        .search-panel {
+            padding: 25px;
+            margin-bottom: 30px;
+            background: white;
+            border: 1px solid #f1dfe1;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(90, 20, 30, 0.05);
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto auto;
+            align-items: end;
+            gap: 15px;
+        }
+
+        .search-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .search-field label {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .search-field input,
+        .search-field select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #e8dadd;
+            border-radius: 8px;
+            background: white;
+            font: inherit;
+        }
+
+        .results-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .results-heading h2 {
+            font-size: 23px;
+        }
+
+        .results-count {
+            color: #d92332;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .donor-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .donor-card {
+            padding: 24px;
+            background: white;
+            border: 1px solid #f1dfe1;
+            border-radius: 14px;
+            box-shadow: 0 8px 22px rgba(90, 20, 30, 0.04);
+        }
+
+        .donor-card-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .blood-badge {
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            width: 58px;
+            height: 58px;
+            border-radius: 14px;
+            background: #fff0f1;
+            color: #d92332;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .donor-name {
+            font-size: 17px;
+            overflow-wrap: anywhere;
+        }
+
+        .donor-city {
+            color: #62585b;
+            font-size: 13px;
+        }
+
+        .donor-status {
+            display: inline-block;
+            margin: 4px 0 14px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #eaf8ef;
+            color: #176534;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .donor-status.unavailable {
+            background: #f3eeee;
+            color: #62585b;
+        }
+
+        .donor-details {
+            padding-top: 14px;
+            border-top: 1px solid #f1e7e8;
+            color: #62585b;
+            font-size: 13px;
+            line-height: 1.9;
+            overflow-wrap: anywhere;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            padding: 50px 20px;
+            text-align: center;
+            background: white;
+            border: 1px dashed #e8c9cd;
+            border-radius: 14px;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 42px;
+        }
+
+        .empty-state h3 {
+            margin: 12px 0 6px;
+        }
+
+        .empty-state p {
+            color: #62585b;
+            font-size: 14px;
+        }
+
+        .demo-note {
+            margin-top: 28px;
+            padding: 15px;
+            border-radius: 9px;
+            background: #fff0f1;
+            color: #75434a;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 900px) {
+            .search-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .donor-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 560px) {
+            .donor-heading h1 {
+                font-size: 30px;
+            }
+
+            .search-grid,
+            .donor-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-panel {
+                padding: 18px;
+            }
+
+            .results-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
+            LifeDrop
+        </a>
+
+        <button class="menu-toggle" id="menuToggle"
+                aria-label="Toggle navigation" aria-expanded="false">
+            ☰
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="find-donor.html">Find Donor</a></li>
+            <li><a href="request-blood.html">Request Blood</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li>
+                <a href="register.html" class="btn btn-primary">
+                    Become a Donor
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="donor-section">
+        <div class="container">
+
+            <div class="donor-heading">
+                <span class="eyebrow">CONNECT WITH OUR COMMUNITY</span>
+                <h1>Find a <span style="color:#d92332;">Blood Donor</span></h1>
+                <p>Search the locally saved donor records in this project demo.</p>
+            </div>
+
+            <form class="search-panel" id="searchForm">
+                <div class="search-grid">
+
+                    <div class="search-field">
+                        <label for="searchBloodGroup">Blood Group</label>
+                        <select id="searchBloodGroup">
+                            <option value="">All blood groups</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+
+                    <div class="search-field">
+                        <label for="searchCity">City</label>
+                        <input type="text" id="searchCity"
+                               placeholder="Enter city name">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Search Donors
+                    </button>
+
+                    <button type="button" class="btn btn-outline"
+                            id="resetSearch">
+                        Reset
+                    </button>
+
+                </div>
+            </form>
+
+            <div class="results-heading">
+                <h2>Donor Directory</h2>
+                <span class="results-count" id="resultsCount">
+                    0 demo records
+                </span>
+            </div>
+
+            <div class="donor-grid" id="donorGrid" aria-live="polite">
+                <div class="empty-state">
+                    <div class="empty-icon">🩸</div>
+                    <h3>Loading donor records...</h3>
+                </div>
+            </div>
+
+            <div class="demo-note">
+                <strong>College project demo:</strong>
+                Records are stored only in this browser. Names, locations,
+                and availability are not verified. Do not use this page for
+                emergency blood matching. Actual blood availability and donor
+                suitability must be confirmed by a qualified blood bank.
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+        <a href="index.html" class="logo footer-logo">
+            <span class="logo-icon">+</span>
+            LifeDrop
+        </a>
+        <p>Promoting blood donation awareness.</p>
+        <p class="copyright">
+            © <span id="currentYear"></span> LifeDrop. Educational project.
+        </p>
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/donors.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Request Blood | LifeDrop</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .request-section {
+            padding: 55px 0 75px;
+            background: #fff7f7;
+        }
+
+        .request-heading {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .request-heading h1 {
+            margin: 10px 0;
+            font-size: 36px;
+        }
+
+        .request-heading p {
+            color: #62585b;
+        }
+
+        .request-card {
+            max-width: 780px;
+            margin: auto;
+            padding: 32px;
+            background: white;
+            border: 1px solid #f1dfe1;
+            border-radius: 16px;
+            box-shadow: 0 12px 35px rgba(90, 20, 30, 0.06);
+        }
+
+        .request-card h2 {
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+
+        .request-intro {
+            margin-bottom: 25px;
+            color: #62585b;
+            font-size: 13px;
+        }
+
+        .request-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .request-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .request-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .request-field label {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .request-field input,
+        .request-field select,
+        .request-field textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #e8dadd;
+            border-radius: 8px;
+            font: inherit;
+            background: white;
+        }
+
+        .request-field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .request-field input:focus,
+        .request-field select:focus,
+        .request-field textarea:focus {
+            outline: 2px solid #f3b2b9;
+            border-color: #d92332;
+        }
+
+        .request-consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 12px;
+            color: #62585b;
+            line-height: 1.7;
+        }
+
+        .request-consent input {
+            margin-top: 4px;
+        }
+
+        .request-submit {
+            width: 100%;
+            margin-top: 24px;
+        }
+
+        .request-message {
+            display: none;
+            padding: 14px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .request-message.success {
+            display: block;
+            background: #eaf8ef;
+            color: #176534;
+        }
+
+        .request-message.error {
+            display: block;
+            background: #fff0f1;
+            color: #a71928;
+        }
+
+        .request-list-section {
+            padding: 60px 0;
+            background: white;
+        }
+
+        .request-list-heading {
+            margin-bottom: 22px;
+        }
+
+        .request-list-heading h2 {
+            font-size: 25px;
+        }
+
+        .request-list-heading p {
+            margin-top: 5px;
+            color: #62585b;
+            font-size: 13px;
+        }
+
+        .request-list {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .request-item {
+            padding: 22px;
+            border: 1px solid #f1dfe1;
+            border-radius: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .request-item h3 {
+            margin-bottom: 8px;
+            font-size: 17px;
+        }
+
+        .request-item p {
+            margin: 6px 0;
+            color: #62585b;
+            font-size: 13px;
+        }
+
+        .request-blood-badge {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            background: #fff0f1;
+            color: #d92332;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .request-status {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #fff3d8;
+            color: #805700;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .request-status.matched {
+            background: #e6f1ff;
+            color: #1b5295;
+        }
+
+        .request-status.fulfilled {
+            background: #eaf8ef;
+            color: #176534;
+        }
+
+        .request-empty {
+            grid-column: 1 / -1;
+            padding: 35px 20px;
+            border: 1px dashed #e8c9cd;
+            border-radius: 12px;
+            text-align: center;
+            color: #62585b;
+        }
+
+        .request-disclaimer {
+            margin-top: 25px;
+            padding: 15px;
+            background: #fff0f1;
+            border-radius: 9px;
+            color: #75434a;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 850px) {
+            .request-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 560px) {
+            .request-heading h1 {
+                font-size: 29px;
+            }
+
+            .request-card {
+                padding: 22px;
+            }
+
+            .request-grid,
+            .request-list {
+                grid-template-columns: 1fr;
+            }
+
+            .request-field.full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
+            LifeDrop
+        </a>
+
+        <button class="menu-toggle" id="menuToggle"
+                aria-label="Toggle navigation" aria-expanded="false">
+            ☰
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="find-donor.html">Find Donor</a></li>
+            <li><a href="request-blood.html">Request Blood</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li>
+                <a href="register.html" class="btn btn-primary">
+                    Become a Donor
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+
+    <section class="request-section">
+        <div class="container">
+
+            <div class="request-heading">
+                <span class="eyebrow">REQUEST ASSISTANCE</span>
+                <h1>Request <span style="color:#d92332;">Blood</span></h1>
+                <p>Submit a blood request for this college project demonstration.</p>
+            </div>
+
+            <div class="request-card">
+                <h2>Blood Request Form</h2>
+                <p class="request-intro">
+                    Complete the details below. All fields marked * are required.
+                </p>
+
+                <div id="requestMessage" class="request-message"
+                     role="status" aria-live="polite"></div>
+
+                <form id="bloodRequestForm">
+                    <div class="request-grid">
+
+                        <div class="request-field">
+                            <label for="patientName">Patient / Requester Name *</label>
+                            <input type="text" id="patientName"
+                                   minlength="2" maxlength="80"
+                                   placeholder="Enter a demo name" required>
+                        </div>
+
+                        <div class="request-field">
+                            <label for="requestPhone">Contact Number *</label>
+                            <input type="tel" id="requestPhone"
+                                   inputmode="numeric"
+                                   pattern="[6-9][0-9]{9}"
+                                   maxlength="10"
+                                   placeholder="10-digit mobile number" required>
+                        </div>
+
+                        <div class="request-field">
+                            <label for="requestBloodGroup">Blood Group *</label>
+                            <select id="requestBloodGroup" required>
+                                <option value="">Select blood group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select>
+                        </div>
+
+                        <div class="request-field">
+                            <label for="units">Units Requested *</label>
+                            <input type="number" id="units"
+                                   min="1" max="20" step="1"
+                                   value="1" required>
+                        </div>
+
+                        <div class="request-field">
+                            <label for="hospital">Hospital / Medical Facility *</label>
+                            <input type="text" id="hospital"
+                                   maxlength="120"
+                                   placeholder="Enter demo facility name" required>
+                        </div>
+
+                        <div class="request-field">
+                            <label for="requestCity">City *</label>
+                            <input type="text" id="requestCity"
+                                   maxlength="80"
+                                   placeholder="Enter city" required>
+                        </div>
+
+                        <div class="request-field full">
+                            <label for="urgency">Request Priority *</label>
+                            <select id="urgency" required>
+                                <option value="">Select priority</option>
+                                <option value="Routine">Routine</option>
+                                <option value="Urgent">Urgent</option>
+                            </select>
+                        </div>
+
+                        <div class="request-field full">
+                            <label for="requestNotes">Additional Notes (Optional)</label>
+                            <textarea id="requestNotes" maxlength="500"
+                                      placeholder="Optional demo notes"></textarea>
+                        </div>
+
+                        <div class="request-field full">
+                            <label class="request-consent">
+                                <input type="checkbox" id="requestConsent" required>
+                                <span>
+                                    I consent to saving this sample request in
+                                    LocalStorage for the college project demo.
+                                    I understand this is not a real blood supply
+                                    or matching service.
+                                </span>
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary request-submit">
+                        Submit Demo Request →
+                    </button>
+                </form>
+
+                <div class="request-disclaimer">
+                    <strong>Important:</strong> This prototype does not contact
+                    hospitals or blood banks, verify blood availability, or
+                    arrange transfusions. For an actual urgent need, contact
+                    the treating hospital or a licensed blood bank directly.
+                    Use fictional information in this demonstration.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="request-list-section">
+        <div class="container">
+
+            <div class="request-list-heading">
+                <h2>Saved Demo Requests</h2>
+                <p>Requests recorded in this browser.</p>
+            </div>
+
+            <div class="form-group" style="max-width: 300px; margin-bottom: 20px;">
+                <label for="requestStatusFilter">Filter Requests by Status</label>
+                <select id="requestStatusFilter">
+                    <option value="All">All Requests</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Matched">Matched</option>
+                    <option value="Fulfilled">Fulfilled</option>
+                </select>
+            </div>
+
+            <div class="request-list" id="requestList" aria-live="polite">
+                <div class="request-empty">No demo requests have been saved.</div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+        <a href="index.html" class="logo footer-logo">
+            <span class="logo-icon">+</span>
+            LifeDrop
+        </a>
+        <p>Promoting blood donation awareness.</p>
+        <p class="copyright">
+            © <span id="currentYear"></span> LifeDrop. Educational project.
+        </p>
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/requests.js"></script>
+
+</body>
+</html>

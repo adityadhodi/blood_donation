@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Donation History | LifeDrop</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .history-section {
+            min-height: 70vh;
+            padding: 50px 0 75px;
+            background: #fff7f7;
+        }
+
+        .history-heading {
+            margin-bottom: 30px;
+        }
+
+        .history-heading h1 {
+            margin: 10px 0;
+            font-size: 35px;
+        }
+
+        .history-heading p {
+            color: #62585b;
+        }
+
+        .history-layout {
+            display: grid;
+            grid-template-columns: 340px minmax(0, 1fr);
+            gap: 25px;
+            align-items: start;
+        }
+
+        .history-panel {
+            padding: 25px;
+            border: 1px solid #f1dfe1;
+            border-radius: 14px;
+            background: white;
+            box-shadow: 0 8px 22px rgba(90, 20, 30, 0.04);
+        }
+
+        .history-panel h2 {
+            margin-bottom: 8px;
+            font-size: 21px;
+        }
+
+        .history-description {
+            margin-bottom: 22px;
+            color: #62585b;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .history-form {
+            display: grid;
+            gap: 17px;
+        }
+
+        .history-field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .history-field label {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .history-field input,
+        .history-field select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e8dadd;
+            border-radius: 8px;
+            background: white;
+            font: inherit;
+        }
+
+        .history-field input:focus,
+        .history-field select:focus {
+            outline: 2px solid #f3b2b9;
+            border-color: #d92332;
+        }
+
+        .history-submit {
+            width: 100%;
+        }
+
+        .history-message {
+            display: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .history-message.success {
+            display: block;
+            background: #eaf8ef;
+            color: #176534;
+        }
+
+        .history-message.error {
+            display: block;
+            background: #fff0f1;
+            color: #a71928;
+        }
+
+        .history-content {
+            min-width: 0;
+        }
+
+        .history-stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .history-stat {
+            padding: 20px;
+            border: 1px solid #f1dfe1;
+            border-radius: 12px;
+            background: white;
+        }
+
+        .history-stat span {
+            color: #62585b;
+            font-size: 12px;
+        }
+
+        .history-stat strong {
+            display: block;
+            margin-top: 5px;
+            color: #d92332;
+            font-size: 28px;
+        }
+
+        .history-list-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 17px;
+        }
+
+        .history-list-heading h2 {
+            font-size: 21px;
+        }
+
+        .history-count {
+            color: #d92332;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .history-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .history-record {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            border: 1px solid #f1dfe1;
+            border-radius: 12px;
+            background: white;
+        }
+
+        .history-blood-icon {
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            width: 53px;
+            height: 53px;
+            border-radius: 12px;
+            background: #fff0f1;
+            color: #d92332;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .history-record-details {
+            flex: 1;
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .history-record-details h3 {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .history-record-details p {
+            margin-top: 5px;
+            color: #62585b;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .demo-label {
+            display: inline-block;
+            margin-top: 9px;
+            padding: 4px 8px;
+            border-radius: 15px;
+            background: #fff3d8;
+            color: #805700;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .delete-history {
+            flex-shrink: 0;
+            padding: 8px 10px;
+            border: 1px solid #f1dfe1;
+            border-radius: 7px;
+            background: white;
+            color: #b91c2a;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .delete-history:hover {
+            background: #fff0f1;
+        }
+
+        .history-empty {
+            padding: 40px 20px;
+            border: 1px dashed #e8c9cd;
+            border-radius: 12px;
+            background: white;
+            text-align: center;
+            color: #62585b;
+        }
+
+        .history-empty .empty-icon {
+            font-size: 35px;
+        }
+
+        .history-empty h3 {
+            margin: 10px 0 5px;
+            color: #241d20;
+        }
+
+        .history-empty p {
+            font-size: 13px;
+        }
+
+        .history-note {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 9px;
+            background: #fff0f1;
+            color: #75434a;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 900px) {
+            .history-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .history-heading h1 {
+                font-size: 29px;
+            }
+
+            .history-panel {
+                padding: 20px;
+            }
+
+            .history-record {
+                flex-wrap: wrap;
+            }
+
+            .delete-history {
+                margin-left: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
+            LifeDrop
+        </a>
+
+        <button class="menu-toggle" id="menuToggle"
+                aria-label="Toggle navigation" aria-expanded="false">
+            ☰
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="find-donor.html">Find Donor</a></li>
+            <li><a href="request-blood.html">Request Blood</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li>
+                <a href="register.html" class="btn btn-primary">
+                    Become a Donor
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="history-section">
+        <div class="container">
+
+            <div class="history-heading">
+                <span class="eyebrow">EVERY CONTRIBUTION MATTERS</span>
+                <h1>Donation <span style="color:#d92332;">History</span></h1>
+                <p>Maintain sample donation records for the LifeDrop project.</p>
+            </div>
+
+            <div class="history-layout">
+
+                <!-- Add History Form -->
+                <section class="history-panel">
+                    <h2>Add a Record</h2>
+                    <p class="history-description">
+                        Enter fictional details to demonstrate the history feature.
+                    </p>
+
+                    <div id="historyMessage"
+                         class="history-message"
+                         role="status"
+                         aria-live="polite"></div>
+
+                    <form id="historyForm" class="history-form">
+
+                        <div class="history-field">
+                            <label for="historyName">Donor Name *</label>
+                            <input type="text" id="historyName"
+                                   minlength="2" maxlength="80"
+                                   placeholder="Demo donor name" required>
+                        </div>
+
+                        <div class="history-field">
+                            <label for="historyBloodGroup">Blood Group *</label>
+                            <select id="historyBloodGroup" required>
+                                <option value="">Select blood group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select>
+                        </div>
+
+                        <div class="history-field">
+                            <label for="historyDate">Donation Date *</label>
+                            <input type="date" id="historyDate" required>
+                        </div>
+
+                        <div class="history-field">
+                            <label for="historyCity">City *</label>
+                            <input type="text" id="historyCity"
+                                   maxlength="80"
+                                   placeholder="Enter city" required>
+                        </div>
+
+                        <div class="history-field">
+                            <label for="historyFacility">Facility Name *</label>
+                            <input type="text" id="historyFacility"
+                                   maxlength="120"
+                                   placeholder="Demo facility name" required>
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-primary history-submit">
+                            + Save Demo Record
+                        </button>
+                    </form>
+                </section>
+
+                <!-- History Records -->
+                <section class="history-content">
+
+                    <div class="history-stats">
+                        <div class="history-stat">
+                            <span>Total Demo Records</span>
+                            <strong id="historyTotal">0</strong>
+                        </div>
+
+                        <div class="history-stat">
+                            <span>Blood Groups Represented</span>
+                            <strong id="historyGroups">0</strong>
+                        </div>
+                    </div>
+
+                    <div class="history-list-heading">
+                        <h2>Saved Records</h2>
+                        <span class="history-count" id="historyCount">
+                            0 records
+                        </span>
+                    </div>
+
+                    <div class="history-list" id="historyList">
+                        <div class="history-empty">
+                            <div class="empty-icon">🩸</div>
+                            <h3>No history yet</h3>
+                            <p>Add a fictional record using the form.</p>
+                        </div>
+                    </div>
+
+                </section>
+
+            </div>
+
+            <div class="history-note">
+                <strong>Educational use only:</strong> These are manually entered
+                demo records, not verified donations. Records are stored locally
+                in this browser. This page is not a medical record system.
+                Use fictional information and do not enter real donor data.
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+        <a href="index.html" class="logo footer-logo">
+            <span class="logo-icon">+</span>
+            LifeDrop
+        </a>
+        <p>Promoting blood donation awareness.</p>
+        <p class="copyright">
+            © <span id="currentYear"></span> LifeDrop. Educational project.
+        </p>
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/history.js"></script>
+
+</body>
+</html>

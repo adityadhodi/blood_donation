@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | LifeDrop</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .dashboard-section {
+            min-height: 75vh;
+            padding: 45px 0 70px;
+            background: #fff7f7;
+        }
+
+        .dashboard-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-heading h1 {
+            margin-top: 8px;
+            font-size: 34px;
+        }
+
+        .dashboard-heading p {
+            color: #62585b;
+            font-size: 14px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            padding: 24px;
+            background: white;
+            border: 1px solid #f1dfe1;
+            border-radius: 14px;
+            box-shadow: 0 8px 22px rgba(90, 20, 30, 0.04);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 27px;
+        }
+
+        .stat-card h3 {
+            margin-top: 16px;
+            color: #62585b;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .stat-card .stat-number {
+            margin-top: 5px;
+            color: #d92332;
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .dashboard-panels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .dashboard-panel {
+            padding: 25px;
+            background: white;
+            border: 1px solid #f1dfe1;
+            border-radius: 14px;
+            min-width: 0;
+        }
+
+        .dashboard-panel h2 {
+            margin-bottom: 7px;
+            font-size: 20px;
+        }
+
+        .panel-description {
+            margin-bottom: 24px;
+            color: #62585b;
+            font-size: 13px;
+        }
+
+        .group-row {
+            display: grid;
+            grid-template-columns: 45px 1fr 30px;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .group-label {
+            color: #d92332;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .bar-track {
+            height: 10px;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #f8e9eb;
+        }
+
+        .bar-fill {
+            height: 100%;
+            width: 0;
+            border-radius: 10px;
+            background: #d92332;
+            transition: width 0.3s ease;
+        }
+
+        .group-count {
+            text-align: right;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .status-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .status-box {
+            padding: 20px;
+            border-radius: 10px;
+            background: #fff4f4;
+        }
+
+        .status-box h3 {
+            font-size: 13px;
+            color: #62585b;
+        }
+
+        .status-box p {
+            margin-top: 8px;
+            font-size: 27px;
+            font-weight: 800;
+            color: #d92332;
+        }
+
+        .status-box.matched-box {
+            background: #eef5ff;
+        }
+
+        .status-box.matched-box p {
+            color: #245ba0;
+        }
+
+        .status-box.fulfilled-box {
+            background: #eaf8ef;
+        }
+
+        .status-box.fulfilled-box p {
+            color: #176534;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .dashboard-note {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 9px;
+            background: #fff0f1;
+            color: #75434a;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .no-data {
+            color: #62585b;
+            font-size: 14px;
+            padding: 12px 0;
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .dashboard-panels {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-heading h1 {
+                font-size: 28px;
+            }
+
+            .dashboard-grid {
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 17px;
+            }
+
+            .stat-card .stat-number {
+                font-size: 27px;
+            }
+
+            .dashboard-panel {
+                padding: 18px;
+            }
+
+            .status-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
+            LifeDrop
+        </a>
+
+        <button class="menu-toggle" id="menuToggle"
+                aria-label="Toggle navigation" aria-expanded="false">
+            ☰
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="find-donor.html">Find Donor</a></li>
+            <li><a href="request-blood.html">Request Blood</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li>
+                <a href="register.html" class="btn btn-primary">
+                    Become a Donor
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="dashboard-section">
+        <div class="container">
+
+            <div class="dashboard-heading">
+                <div>
+                    <span class="eyebrow">LIFEDROP OVERVIEW</span>
+                    <h1>Admin Dashboard</h1>
+                    <p>Summary of records saved in this browser.</p>
+                </div>
+
+                <button type="button" class="btn btn-outline" id="refreshDashboard">
+                    ↻ Refresh Data
+                </button>
+            </div>
+
+            <div class="dashboard-grid">
+
+                <article class="stat-card">
+                    <div class="stat-icon">🩸</div>
+                    <h3>Total Registered Donors</h3>
+                    <p class="stat-number" id="totalDonors">0</p>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <h3>Total Blood Requests</h3>
+                    <p class="stat-number" id="totalRequests">0</p>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-icon">🤝</div>
+                    <h3>Interested Donors</h3>
+                    <p class="stat-number" id="interestedDonors">0</p>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <h3>Fulfilled Demo Requests</h3>
+                    <p class="stat-number" id="fulfilledRequests">0</p>
+                </article>
+
+            </div>
+
+            <div class="dashboard-panels">
+
+                <section class="dashboard-panel">
+                    <h2>Blood Group Distribution</h2>
+                    <p class="panel-description">
+                        Registered donor records by blood group.
+                    </p>
+
+                    <div id="bloodGroupChart">
+                        <p class="no-data">No donor records available.</p>
+                    </div>
+                </section>
+
+                <section class="dashboard-panel">
+                    <h2>Request Status Overview</h2>
+                    <p class="panel-description">
+                        Current status of saved demo requests.
+                    </p>
+
+                    <div class="status-summary">
+                        <div class="status-box">
+                            <h3>Pending</h3>
+                            <p id="pendingRequests">0</p>
+                        </div>
+
+                        <div class="status-box matched-box">
+                            <h3>Matched</h3>
+                            <p id="matchedRequests">0</p>
+                        </div>
+
+                        <div class="status-box fulfilled-box">
+                            <h3>Fulfilled</h3>
+                            <p id="fulfilledStatusRequests">0</p>
+                        </div>
+
+                        <div class="status-box">
+                            <h3>Other Status</h3>
+                            <p id="otherRequests">0</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <div class="dashboard-actions">
+                <a href="register.html" class="btn btn-primary">
+                    + Register Donor
+                </a>
+
+                <a href="find-donor.html" class="btn btn-outline">
+                    Find Donors
+                </a>
+
+                <a href="request-blood.html" class="btn btn-outline">
+                    View Requests
+                </a>
+            </div>
+
+            <div class="dashboard-note">
+                <strong>Demo dashboard:</strong> Statistics are calculated
+                from LocalStorage in the current browser. They are not live
+                blood inventory figures. This page does not have admin
+                authentication and must not be used to manage real donor
+                or patient records.
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+        <a href="index.html" class="logo footer-logo">
+            <span class="logo-icon">+</span>
+            LifeDrop
+        </a>
+        <p>Promoting blood donation awareness.</p>
+        <p class="copyright">
+            © <span id="currentYear"></span> LifeDrop. Educational project.
+        </p>
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/dashboard.js"></script>
+
+</body>
+</html>

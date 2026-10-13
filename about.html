@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Us | LifeDrop</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .about-hero {
+            padding: 75px 0;
+            background: linear-gradient(120deg, #fff1f2, #fffafa);
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            margin: 14px 0;
+            font-size: clamp(34px, 5vw, 48px);
+        }
+
+        .about-hero h1 span {
+            color: #d92332;
+        }
+
+        .about-hero p {
+            max-width: 700px;
+            margin: auto;
+            color: #62585b;
+            line-height: 1.9;
+        }
+
+        .about-section {
+            padding: 65px 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .about-card {
+            padding: 28px;
+            border: 1px solid #f1dfe1;
+            border-radius: 14px;
+            background: white;
+            box-shadow: 0 8px 22px rgba(90, 20, 30, 0.04);
+        }
+
+        .about-icon {
+            display: grid;
+            place-items: center;
+            width: 55px;
+            height: 55px;
+            margin-bottom: 17px;
+            border-radius: 13px;
+            background: #fff0f1;
+            font-size: 26px;
+        }
+
+        .about-card h2 {
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+
+        .about-card p {
+            color: #62585b;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .feature-section {
+            padding: 65px 0;
+            background: #fff7f7;
+        }
+
+        .about-section-heading {
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .about-section-heading h2 {
+            margin: 10px 0;
+            font-size: 32px;
+        }
+
+        .about-section-heading p {
+            color: #62585b;
+            font-size: 14px;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .about-feature {
+            padding: 24px;
+            border: 1px solid #f1dfe1;
+            border-radius: 12px;
+            background: white;
+        }
+
+        .about-feature .feature-number {
+            color: #d92332;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .about-feature h3 {
+            margin: 12px 0 8px;
+            font-size: 17px;
+        }
+
+        .about-feature p {
+            color: #62585b;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .technology-section {
+            padding: 65px 0;
+        }
+
+        .technology-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .technology-card {
+            padding: 23px 15px;
+            border: 1px solid #f1dfe1;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .technology-card strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #d92332;
+            font-size: 17px;
+        }
+
+        .technology-card p {
+            color: #62585b;
+            font-size: 12px;
+        }
+
+        .project-notice {
+            margin-top: 30px;
+            padding: 20px;
+            border-left: 4px solid #d92332;
+            border-radius: 7px;
+            background: #fff0f1;
+            color: #75434a;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .about-cta {
+            padding: 55px 0;
+            background: linear-gradient(120deg, #c8192c, #e63342);
+            color: white;
+            text-align: center;
+        }
+
+        .about-cta h2 {
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .about-cta p {
+            margin-bottom: 22px;
+            color: #ffe9eb;
+            font-size: 14px;
+        }
+
+        @media (max-width: 800px) {
+            .about-features {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .technology-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 560px) {
+            .about-hero {
+                padding: 55px 0;
+            }
+
+            .about-section,
+            .feature-section,
+            .technology-section {
+                padding: 45px 0;
+            }
+
+            .about-grid,
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .about-section-heading h2 {
+                font-size: 27px;
+            }
+
+            .about-cta h2 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
+            LifeDrop
+        </a>
+
+        <button class="menu-toggle" id="menuToggle"
+                aria-label="Toggle navigation" aria-expanded="false">
+            ☰
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="find-donor.html">Find Donor</a></li>
+            <li><a href="request-blood.html">Request Blood</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li>
+                <a href="register.html" class="btn btn-primary">
+                    Become a Donor
+                </a>
+            </li>
+        </ul>
+
+    </nav>
+</header>
+
+<main>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <div class="container">
+            <span class="eyebrow">ABOUT OUR PROJECT</span>
+
+            <h1>About <span>LifeDrop</span></h1>
+
+            <p>
+                LifeDrop is a browser-based blood donation awareness and
+                donor directory application developed as a college project.
+                It demonstrates how simple web technologies can help organize
+                donor information and sample blood requests in one interface.
+            </p>
+        </div>
+    </section>
+
+    <!-- Mission and Vision -->
+    <section class="about-section">
+        <div class="container about-grid">
+
+            <article class="about-card">
+                <div class="about-icon">🎯</div>
+                <h2>Our Objective</h2>
+                <p>
+                    The main objective of LifeDrop is to create a simple,
+                    user-friendly interface for donor registration, searching
+                    demo donor records, recording sample blood requests,
+                    and displaying basic statistics. The project also
+                    demonstrates form validation and browser-based storage.
+                </p>
+            </article>
+
+            <article class="about-card">
+                <div class="about-icon">❤️</div>
+                <h2>Our Vision</h2>
+                <p>
+                    LifeDrop aims to promote awareness about voluntary blood
+                    donation and demonstrate how digital tools can organize
+                    information. A future production version could connect
+                    authorized users and licensed blood banks through a
+                    secure, verified system.
+                </p>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="feature-section">
+        <div class="container">
+
+            <div class="about-section-heading">
+                <span class="eyebrow">WHAT THE PROJECT OFFERS</span>
+                <h2>Key Features</h2>
+                <p>Explore the main modules included in this demonstration.</p>
+            </div>
+
+            <div class="about-features">
+
+                <article class="about-feature">
+                    <span class="feature-number">01 / REGISTRATION</span>
+                    <h3>Donor Registration</h3>
+                    <p>
+                        A form to enter sample donor details, select a blood
+                        group, and save a registration in browser storage.
+                    </p>
+                </article>
+
+                <article class="about-feature">
+                    <span class="feature-number">02 / SEARCH</span>
+                    <h3>Find a Donor</h3>
+                    <p>
+                        Filter locally saved demo records by blood group
+                        and city.
+                    </p>
+                </article>
+
+                <article class="about-feature">
+                    <span class="feature-number">03 / REQUESTS</span>
+                    <h3>Blood Requests</h3>
+                    <p>
+                        Submit fictional blood requests and display their
+                        demonstration status.
+                    </p>
+                </article>
+
+                <article class="about-feature">
+                    <span class="feature-number">04 / ANALYTICS</span>
+                    <h3>Dashboard</h3>
+                    <p>
+                        Display donor counts, blood-group distribution,
+                        and request statistics.
+                    </p>
+                </article>
+
+                <article class="about-feature">
+                    <span class="feature-number">05 / RECORDS</span>
+                    <h3>Donation History</h3>
+                    <p>
+                        Add, view, and delete fictional donation history
+                        records.
+                    </p>
+                </article>
+
+                <article class="about-feature">
+                    <span class="feature-number">06 / DESIGN</span>
+                    <h3>Responsive Interface</h3>
+                    <p>
+                        Provide a red-and-white interface that adapts to
+                        desktop, tablet, and mobile screens.
+                    </p>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section class="technology-section">
+        <div class="container">
+
+            <div class="about-section-heading">
+                <span class="eyebrow">BUILT WITH WEB TECHNOLOGIES</span>
+                <h2>Technology Stack</h2>
+                <p>No backend or paid API is required for this prototype.</p>
+            </div>
+
+            <div class="technology-grid">
+
+                <div class="technology-card">
+                    <strong>HTML5</strong>
+                    <p>Page structure and forms</p>
+                </div>
+
+                <div class="technology-card">
+                    <strong>CSS3</strong>
+                    <p>Styling and responsive layouts</p>
+                </div>
+
+                <div class="technology-card">
+                    <strong>JavaScript</strong>
+                    <p>Validation, search and logic</p>
+                </div>
+
+                <div class="technology-card">
+                    <strong>LocalStorage</strong>
+                    <p>Browser-based demo records</p>
+                </div>
+
+            </div>
+
+            <div class="project-notice">
+                <strong>Project limitation:</strong> LifeDrop is an educational
+                prototype. Its records are stored only in the current browser
+                and are not shared with hospitals or other users. It does not
+                verify donors, confirm blood availability, determine medical
+                eligibility, or arrange blood transfusions. Actual blood
+                requests must be handled through qualified medical services
+                and licensed blood banks.
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="about-cta">
+        <div class="container">
+            <h2>Every Drop Matters.</h2>
+            <p>
+                Learn about voluntary blood donation and help spread awareness.
+            </p>
+
+            <a href="register.html" class="btn btn-light">
+                Explore Donor Registration →
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+
+        <a href="index.html" class="logo footer-logo">
+            <span class="logo-icon">+</span>
+            LifeDrop
+        </a>
+
+        <p>Promoting blood donation awareness.</p>
+
+        <p class="copyright">
+            © <span id="currentYear"></span> LifeDrop.
+            Educational project.
+        </p>
+
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+
+</body>
+</html>
